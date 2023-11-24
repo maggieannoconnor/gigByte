@@ -97,7 +97,7 @@ body tags tell bodries of what is displayed on screen
 any content goes here-->
 <body>
 <?php include("header.html");?>
-<p>This is a test.</p>
+
 <div class="container"> <!-- specified bootstrap format 
   (adds cushion, default font, etc.) - make use of existing bootstrap format -->
   <h1>DB Programming: Get Started</h1>  
