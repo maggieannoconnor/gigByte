@@ -8,7 +8,7 @@ require("connect-db.php");
 // include("connect-db.php"); -->
 
 // make available to use in code
-require("friend-db.php");
+require("gigbyte-db.php");
 // so list shows when you first open site
 $list_of_friends = getAllFriends();
 if  ($_SERVER['REQUEST_METHOD'] == 'POST')

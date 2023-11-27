@@ -61,4 +61,42 @@ function deleteFriend($name)
     $statement->closeCursor();
 }
 
+// all functions pertaining to BANDS
+function getAllBands()
+{
+    global $db;
+
+    $query = "select * from band;";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll(); 
+    $statement->closeCursor();
+    return $results;
+}
+
+
+function addBand($bandname, $genre, $phone, $instagram)
+{
+    
+    global $db;
+    
+
+
+    $query = "insert into band(band_id, name, genre, phoneNumber, instagram) value (:id, :bandname , :genre, :phone, :instagram) ";
+    $statement = $db->prepare($query);
+    
+    echo($id);
+    $statement->bindValue(':id', rand(10,10000));
+    $statement->bindValue(':bandname', $bandname);
+    $statement->bindValue(':genre', $genre);
+    $statement->bindValue(':phone', $phone);
+    $statement->bindValue(':instagram', $instagram);
+
+
+    $statement->execute();
+
+    $statement->closeCursor();
+
+}
+
 ?>
