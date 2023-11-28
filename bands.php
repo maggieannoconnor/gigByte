@@ -5,9 +5,24 @@ require("gigbyte-db.php");
 $list_of_bands = getAllBands();
 if  ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['insertBtn']))
+
+  if (!empty($_POST['updateBtn']))
+  {
+    //echo $_POST['id_to_update'];
+  }
+  elseif (!empty($_POST['insertBtn']))
   {
     addBand($_POST['bandname'], $_POST['genre'], $_POST['phone'], $_POST['instagram']);
+    $list_of_bands = getAllBands();
+  }
+  elseif (!empty($_POST['deleteBtn']))
+  {
+    deleteBand($_POST['id_to_delete']);
+    $list_of_bands = getAllBands();
+  }
+  elseif(!empty($_POST['confirmUpdateBtn']))
+  {
+    updateBandById($_POST['bandname'], $_POST['genre'], $_POST['phone'], $_POST['instagram']);
     $list_of_bands = getAllBands();
   }
 }
@@ -58,6 +73,32 @@ if  ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td><?php echo $band['instagram']; ?></td> 
      <td><?php echo $band['phoneNumber']; ?></td> 
      <td><?php echo $band['avg_rating'], "/5"; ?></td> 
+     <td> 
+        <form action="bands.php" method="post">
+          <input type="submit" value="Update" name="updateBtn" class="btn btn-secondary" />
+          <input type="hidden" name="id_to_update" 
+              value="<?php echo $band['band_id']; ?>"
+          />
+          <input type="hidden" name="name_to_update" 
+              value="<?php echo $band['name']; ?>"
+          />
+          <input type="hidden" name="genre_to_update" 
+              value="<?php echo $band['genre']; ?>"
+          />
+          <input type="hidden" name="instagram_to_update" 
+              value="<?php echo $band['instagram']; ?>"
+          />
+          <input type="hidden" name="phone_to_update" 
+              value="<?php echo $band['phoneNumber']; ?>"
+          />
+        </form>
+      </td>   
+     <td>
+      <form action="bands.php" method="post">
+        <input type="submit" value="Delete" name="deleteBtn" class="btn btn-danger" title="Remove a band" />
+        <input type="hidden" name="id_to_delete" value="<?php echo $band['band_id'];?>"/>
+      <form>
+    </td>
   </tr>
 <?php endforeach; ?>
 </div>   
@@ -68,22 +109,26 @@ if  ($_SERVER['REQUEST_METHOD'] == 'POST')
 <form name="addBandForm" action="bands.php" method="post">   
     <div class="row mb-3 mx-3">
       Band Name (required):
-      <input type="text" class="form-control" name="bandname" required/>
+      <input type="text" class="form-control" name="bandname" value="<?php echo $_POST['name_to_update'];?>"/>
     </div><div class="row mb-3 mx-3">
       Genre (required):
-      <input type="text" class="form-control" name="genre"/>        
+      <input type="text" class="form-control" name="genre" value="<?php echo $_POST['genre_to_update'];?>"/>        
     </div>  
     <div class="row mb-3 mx-3">
       Phone Number (required):
-      <input type="text" class="form-control" name="phone" required/>        
+      <input type="text" class="form-control" name="phone" value="<?php echo $_POST['phone_to_update'];?>"/>        
     </div>  
     <div class="row mb-3 mx-3">
       Instagram Handle:
-      <input type="text" class="form-control" name="instagram" required/>        
+      <input type="text" class="form-control" name="instagram" value="<?php echo $_POST['instagram_to_update'];?>"/>        
     </div>  
     <div class="row mb-3 mx-3">
-      <input type="submit" value="Add New Band" name="insertBtn" class="btn btn-primary" title="Insert a band into bands" required />
+      <input type="submit" value="Add New Band" name="insertBtn" class="btn btn-primary" title="Insert a band into bands" />
     </div>
+    <div class="row mb-3 mx-3">
+      <input type="submit" value="Confirm Update" name="confirmUpdateBtn" 
+              class="btn btn-secondary" title="Update a band's information" required/>   
+    </div>  
 </form>
   </div>
 </div>

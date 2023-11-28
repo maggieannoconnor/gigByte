@@ -85,7 +85,6 @@ function addBand($bandname, $genre, $phone, $instagram)
     $query = "insert into band(band_id, name, genre, phoneNumber, instagram) value (:id, :bandname , :genre, :phone, :instagram) ";
     $statement = $db->prepare($query);
     
-    echo($id);
     $statement->bindValue(':id', rand(10,10000));
     $statement->bindValue(':bandname', $bandname);
     $statement->bindValue(':genre', $genre);
@@ -97,6 +96,34 @@ function addBand($bandname, $genre, $phone, $instagram)
 
     $statement->closeCursor();
 
+}
+
+function deleteBand($band_id)
+{
+
+    global $db;
+
+    $query = "delete from band where band.band_id = :band_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':band_id', $band_id);
+    $statement->execute();
+    $statement->closeCursor();
+
+}
+
+function updateBandByID($bandname, $genre, $phone, $instagram)
+{
+    global $db;
+    $query = "update band set genre=:genre, phoneNumber=:phone, instagram=:instagram where band.name=:bandname";
+    $statement = $db->prepare($query);
+    //echo($bandname);
+    $statement->bindValue(':bandname', $bandname);
+    $statement->bindValue(':genre', $genre);
+    $statement->bindValue(':phone', $phone);
+    $statement->bindValue(':instagram', $instagram);
+
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 ?>
