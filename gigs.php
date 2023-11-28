@@ -3,12 +3,21 @@ require("connect-db.php");
 require("gigbyte-db.php");
 
 $list_of_gig_info = getAllGigsInfo();
+//$venue_coordinator_venues = getVenuesByCoordinatorId();
+$all_venues = getAllVenues();
 
 // Handle search functionality
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //echo $_POST["venue"]."";
     $searchTerm = $_POST['search'];
     if (!empty($searchTerm)) {
         $list_of_gig_info = searchGigsByName($searchTerm);
+    }
+    elseif(!empty($_POST['addGigBtn']))
+    {
+      
+      addGig($_POST["gigName"], $_POST["startTime"], $_POST["endTime"], $_POST["venue"]);
+      $list_of_gig_info = getAllGigsInfo();
     }
 }
 ?>
@@ -70,33 +79,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
+    <div class="container mt-5">
     <h1 class="lead" style="text-align: center">Post A Gig</h1>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <form action="gigs.php" method="post">
+        <div class="mb-3">
+            <label for="gigName" class="form-label">Gig Name:</label>
+            <input type="text" class="form-control" id="gigName" name="gigName" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="startTime" class="form-label">Start Time:</label>
+            <input type="datetime-local" class="form-control" id="startTime" name="startTime" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="endTime" class="form-label">End Time:</label>
+            <input type="datetime-local" class="form-control" id="endTime" name="endTime" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="venue" class="form-label">Venue:</label>
+            <select class="form-select" id="venue" name="venue" required>
+                <option value="" disabled selected>Select a Venue</option>
+                <?php foreach($all_venues as $venue): ?>
+                  <option value="<?php echo $venue['venue_id']?>"> 
+                    <?php echo $venue['name']?>
+                  </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <input type="submit" value="Add Gig" name="addGigBtn" class="btn btn-success" title="Add Gig" />
+        <br>
+    </form>
+</div>
 
     <?php include("footer.html");?>   
 </body>

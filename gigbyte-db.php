@@ -205,4 +205,49 @@ function searchGigsByName($searchTerm) {
     return $result;
 }
 
+function getVenuesByCoordinatorId($coordinator_id)
+{
+    global $db;
+    $query = "SELECT venue.venue_id, venue.name FROM venue, coordinates, venue_coordinator where venue.venue_id = coordinates.venue_id and coordinates.account_id = venue_coordinator.account_id and venue_coordinator.account_id = :coordinator_id;";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':coordinator_id', $coordinator_id);
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
+function addGig($name, $start_time, $end_time, $venue_id)
+{
+
+    global $db;
+    try {
+        $query = 'INSERT INTO gig VALUES (:id, :name, :start_time, :end_time, :venue_id)';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', rand(10, 10000));
+        $statement->bindValue(':name', $name);
+        $statement->bindValue(':start_time', $start_time);
+        $statement->bindValue(':end_time', $end_time);
+        $statement->bindValue(':venue_id', $venue_id);
+        $statement->execute();
+        $statement->closeCursor();
+    } catch (Exception $e) {
+        // Handle the exception, log, or display an error message.
+        echo 'Error: ' . $e->getMessage();
+    }
+
+}
+
+
+// Venues Functions
+function getAllVenues()
+{
+    global $db;
+    $query = 'select * from venue';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    $statement->closeCursor();
+    return $result;
+}
+
 ?>
