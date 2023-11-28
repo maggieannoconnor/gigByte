@@ -159,4 +159,19 @@ function getMembersByBandID($band_id)
     return $results;
 }
 
+
+
+// Band Member Functions
+function getAllBandMembers()
+{
+    global $db;
+
+    $query = "select * from band_member;";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll(); 
+    $statement->closeCursor();
+    return $results;
+}
+
 ?>
