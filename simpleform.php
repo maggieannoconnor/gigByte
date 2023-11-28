@@ -156,7 +156,7 @@ any content goes here-->
 <div class="row justify-content-center">  
 <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
   <thead>
-  <tr style="background-color:#B0B0B0">
+  <tr style="background-color:#B0A6B0">
     <th width="30%">Name        
     <th width="30%">Major        
     <th width="30%">Year 

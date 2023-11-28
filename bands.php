@@ -5,7 +5,6 @@ require("gigbyte-db.php");
 $list_of_bands = getAllBands();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     if (!empty($_POST['updateBtn'])) {
         //echo $_POST['id_to_update'];
     } elseif (!empty($_POST['insertBtn'])) {
@@ -20,18 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 /*
-if ($_SERVER['REQUEST_METHOD'] == 'GET')
-{
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $list_of_bands = getAllBands();
   $string = $_GET['filter'];
   echo $string;
-  if(!empty($string))
-  {
+  if(!empty($string)) {
     echo ($string);
     $list_of_bands = performBandSearch($string);
-  }
-  else
-  {
+  } else {
     
   }
   //echo $list_of_bands;
@@ -42,27 +37,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 <!DOCTYPE html> 
 <html> 
 <head> 
-
-  <meta charset="UTF-8">  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Maggie O'Connor and Robbie Boyle">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Maggie O'Connor and Robbie Boyle">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .center {
+            margin: auto;
+        }
+        .table-header {
+            background-color: #B0A6B0;
+        }
+        .form-section {
+            border: 1px solid black;
+            text-align: center;
+        }
+        .form-title {
+            text-align: center;
+        }
+        .form-buttons {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <?php include("header.html");?>
     <br>
     <div class="container">
-      <div class="row mb-3 mx-3" style="border: 1px solid black">
-        <h1 style="text-align: center">All Bands</h1> 
-      </div>  
+        <div class="row mb-3 mx-3 form-section">
+            <h1 class="form-title">All Bands</h1> 
+        </div>  
         <hr/>
         <div class="row justify-content-center">  
             <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
                 <thead>
-                    <tr style="background-color:#B0B0B0">
+                    <tr class="table-header">
                         <th width="20%">Name</th>
                         <th width="20%">Genre</th>
                         <th width="20%">Instagram</th>
@@ -73,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-
                 <?php foreach ($list_of_bands as $band): ?> 
                     <tr style="border: 1px solid black"> 
                         <td><?php echo $band['name']; ?></td>
@@ -113,11 +122,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         <br>
         <hr>
         <div class="flex-grow-1">
-            <div class="container mt-4">
-              <div class="row mb-3 mx-3" style="border: 1px solid black">
-                <h1 style="text-align: center">Add A Band</h1> 
-              </div>  
-              <hr>
+            <div class="container mt-4 form-section">
+                <div class="row mb-3 mx-3">
+                    <h1 class="form-title">Add A Band</h1> 
+                </div>  
+                <hr>
                 <form name="addBandForm" action="bands.php" method="post">   
                     <div class="row mb-3 mx-3">
                         Band Name (required):
@@ -135,10 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
                         Instagram Handle:
                         <input type="text" class="form-control" name="instagram" value="<?php echo $_POST['instagram_to_update'];?>"/>        
                     </div>  
-                    <div class="row mb-3 mx-3">
+                    <div class="row mb-3 mx-3 form-buttons">
                         <input type="submit" value="Add New Band" name="insertBtn" class="btn btn-primary" title="Insert a band into bands" />
                     </div>
-                    <div class="row mb-3 mx-3">
+                    <div class="row mb-3 mx-3 form-buttons">
                         <input type="submit" value="Confirm Update" name="confirmUpdateBtn" class="btn btn-secondary" title="Update a band's information" required/>   
                     </div>  
                     <br>
@@ -153,4 +162,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
                     </div>
                     <br>
                 </form>
-            </html>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

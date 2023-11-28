@@ -2,6 +2,7 @@
 require("connect-db.php");
 require("gigbyte-db.php");
 
+$list_of_bands = getAllBands();
 $list_of_band_members = getAllBandMembers();
 
 ?>
@@ -29,8 +30,38 @@ $list_of_band_members = getAllBandMembers();
 <?php include("header.html");?>
 
 
-
-
+<h1 style="text-align: center">Band Members By Band</h1>
+<div class="row justify-content-center">  
+<table class="w3-table w3-bordered w3-card-4 center" style="width:80%">
+    <thead>
+        <tr style="background-color:#B0A6B0">
+            <th width="20%">Band</th>
+            <th width="70%">Members</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        
+        <?php foreach ($list_of_bands as $band):?>
+            <tr>
+                <td><?php echo $band['name']?></td>
+                <td>
+                <?php echo "| "?>
+                <?php 
+                    $list_of_members = getMembersByBandID($band["band_id"]);
+                    foreach ($list_of_members as $member):
+                ?>
+                
+                <?php echo $member['name']." on ".$member['instrument']." | "?>
+                <?php endforeach; ?>
+                </td>
+            </tr>   
+        <?php endforeach;?>
+        
+    </tbody>
+    <hr>
+</table>
+</div>
 
 <br>
 <br>

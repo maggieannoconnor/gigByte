@@ -150,7 +150,7 @@ function getMembersByBandID($band_id)
 {
     global $db;
 
-    $query = 'select band_member.name from band_member, plays_in, band where plays_in.account_id = band_member.account_id and plays_in.band_id = band.band_id and band.band_id = :band_id;';
+    $query = 'select distinct band_member.name, band_member.instrument from band_member, plays_in, band where plays_in.account_id = band_member.account_id and plays_in.band_id = band.band_id and band.band_id = :band_id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':band_id', $band_id);
     $statement->execute();
@@ -172,6 +172,37 @@ function getAllBandMembers()
     $results = $statement->fetchAll(); 
     $statement->closeCursor();
     return $results;
+}
+
+
+// Gig Functions
+
+function getAllGigsInfo()
+{
+    global $db;
+    $query = "select gig.name, start_time, venue.name as vname, address from gig, venue where gig.venue_id = venue.venue_id;";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
+function searchGigsByName($searchTerm) {
+
+
+    global $db;
+    $query = "select gig.name, start_time, venue.name as vname, address from gig, venue where gig.venue_id = venue.venue_id and (gig.name LIKE :searchTerm OR venue.name LIKE :searchTerm OR address LIKE :searchTerm);";
+    //$query = "SELECT * FROM gig WHERE name LIKE :searchTerm";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
+    $statement->execute();
+
+
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    $statement->closeCursor();
+    return $result;
 }
 
 ?>
