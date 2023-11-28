@@ -126,4 +126,37 @@ function updateBandByID($bandname, $genre, $phone, $instagram)
     $statement->closeCursor();
 }
 
+function performBandSearch($string)
+{
+    
+    global $db;
+    $query = "SELECT * FROM band WHERE name LIKE :bandname OR phoneNumber LIKE :phone OR genre LIKE :genre OR instagram LIKE :instagram";
+
+    $statement = $db->prepare($query);
+    
+    $statement->bindValue(':bandname', '%' . $string . '%');
+    $statement->bindValue(':genre', '%' . $string . '%');
+    $statement->bindValue(':phone', '%' . $string . '%');
+    $statement->bindValue(':instagram', '%' . $string . '%');
+
+
+    $statement->execute();
+    $results = $statement->fetchAll(); 
+    $statement->closeCursor();
+    return $results;
+}
+
+function getMembersByBandID($band_id)
+{
+    global $db;
+
+    $query = 'select band_member.name from band_member, plays_in, band where plays_in.account_id = band_member.account_id and plays_in.band_id = band.band_id and band.band_id = :band_id;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':band_id', $band_id);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
 ?>

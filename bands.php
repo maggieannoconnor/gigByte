@@ -2,7 +2,9 @@
 <?php
 require("connect-db.php");
 require("gigbyte-db.php");
+
 $list_of_bands = getAllBands();
+
 if  ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
@@ -26,6 +28,23 @@ if  ($_SERVER['REQUEST_METHOD'] == 'POST')
     $list_of_bands = getAllBands();
   }
 }
+/*
+if ($_SERVER['REQUEST_METHOD'] == 'GET')
+{$list_of_bands = getAllBands();
+  $string = $_GET['filter'];
+  echo $string;
+  if(!empty($string))
+  {
+    echo ($string);
+    $list_of_bands = performBandSearch($string);
+  }
+  else
+  {
+    
+  }
+  //echo $list_of_bands;
+}
+*/
 ?>
 
 
@@ -49,30 +68,44 @@ if  ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <div class="container">
 
-  <h1>All Bands</h1>  
+  <h3>Add a Band:</h3>  
 
 <hr/>
 <div class="row justify-content-center">  
 <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
   <thead>
+
   <tr style="background-color:#B0B0B0">
-    <th width="30%">Name        
-    <th width="30%">Genre     
-    <th width="30%">Instagram
-    <th width="30%">Phone
-    <th width="30%">Rating
+    <th width="20%">Name        
+    <th width="20%">Genre     
+    <th width="20%">Instagram
+    <th width="20%">Phone
+    <th width="20%">Rating
+    <th width="50%">Members
     <th>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
   </thead>
 
+
+
 <?php foreach ($list_of_bands as $band): ?> 
-  <tr> 
+  <tr style="border: 1px solid black"> 
      <td><?php echo $band['name']; ?></td>
      <td><?php echo $band['genre']; ?></td>        
      <td><?php echo $band['instagram']; ?></td> 
      <td><?php echo $band['phoneNumber']; ?></td> 
      <td><?php echo $band['avg_rating'], "/5"; ?></td> 
+     <td>
+      <?php
+        $list_of_members = getMembersByBandID($band["band_id"]);
+        if (!empty($list_of_members))
+          foreach ($list_of_members as $member):
+            echo ($member['name']." ");
+          endforeach;
+      ?>
+
+     </td>
      <td> 
         <form action="bands.php" method="post">
           <input type="submit" value="Update" name="updateBtn" class="btn btn-secondary" />
@@ -129,6 +162,20 @@ if  ($_SERVER['REQUEST_METHOD'] == 'POST')
       <input type="submit" value="Confirm Update" name="confirmUpdateBtn" 
               class="btn btn-secondary" title="Update a band's information" required/>   
     </div>  
+    <br>
+    <br>
+    <div class="row mb-3 mx-3" style="border: 1px solid black">
+      <h1 style="text-align: center">All Bands</h1> 
+    </div>  
+    <div class="row mb-3 mx-3">
+      <!--
+      <form method="get" action="bands.php">
+        <input type="text" name="filter" placeholder="search for a band here">
+        <button type="submit">Search</button>
+      </form>
+      -->
+    </div>
+    <br>
 </form>
   </div>
 </div>
