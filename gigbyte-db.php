@@ -180,7 +180,7 @@ function getAllBandMembers()
 function getAllGigsInfo()
 {
     global $db;
-    $query = "select gig.name, start_time, venue.name as vname, address from gig, venue where gig.venue_id = venue.venue_id;";
+    $query = "select gig.gig_id, gig.name, start_time, venue.name as vname, address from gig, venue where gig.venue_id = venue.venue_id;";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll();
@@ -231,10 +231,19 @@ function addGig($name, $start_time, $end_time, $venue_id)
         $statement->execute();
         $statement->closeCursor();
     } catch (Exception $e) {
-        // Handle the exception, log, or display an error message.
         echo 'Error: ' . $e->getMessage();
     }
 
+}
+
+function deleteGig($gigIdToDelete)
+{
+    global $db;
+    $query = "delete from gig where gig_id = :gig_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":gig_id", $gigIdToDelete);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 

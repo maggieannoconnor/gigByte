@@ -10,8 +10,15 @@ $all_venues = getAllVenues();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //echo $_POST["venue"]."";
     $searchTerm = $_POST['search'];
-    if (!empty($searchTerm)) {
+    if (!empty($searchTerm)) 
+    {
         $list_of_gig_info = searchGigsByName($searchTerm);
+    }
+    elseif (!empty($_POST['deleteGigBtn'])) 
+    {
+        deleteGig($_POST['gigIdToDelete']);
+        $list_of_gig_info = getAllGigsInfo();
+
     }
     elseif(!empty($_POST['addGigBtn']))
     {
@@ -19,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       addGig($_POST["gigName"], $_POST["startTime"], $_POST["endTime"], $_POST["venue"]);
       $list_of_gig_info = getAllGigsInfo();
     }
+
 }
 ?>
 
@@ -28,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Maggie O'Connor and Robbie Boyle">
-    <meta name="description" content="index page for gigByte">  
+    <meta name="description" content="">  
+    <!--<script src="https://kit.fontawesome.com/4eb1de00b2.js" crossorigin="anonymous"></script>-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
@@ -66,8 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <td><?php echo $gig['vname']?></td>
                         <td><?php echo $gig['address']?></td>
                         <td>
-                            <input class="btn btn-info" type="submit" value="Sign Up">
+                            <form action="gigs.php" method="post">
+                                
+                                <input type="submit" value="Delete" name="deleteGigBtn" class="btn btn-danger" title="Delete Gig" />                           
+                                <input type="hidden" name="gigIdToDelete" value="<?php echo $gig['gig_id']; ?>"/>
+                            </form>
                         </td>
+                        
+ 
                     </tr>   
                 <?php endforeach;?>
             </tbody>
@@ -111,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <input type="submit" value="Add Gig" name="addGigBtn" class="btn btn-success" title="Add Gig" />
+         
         <br>
     </form>
 </div>
