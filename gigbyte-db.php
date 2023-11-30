@@ -304,4 +304,65 @@ function getAllVenues()
     return $result;
 }
 
+function getUserAttributes($id)
+{
+    global $db;
+
+    $query = "SELECT * FROM users WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $success = $statement->execute();
+
+    if (!$success) {
+        return false; // Check
+    }
+
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    if (!$user) {
+        return false; // No user found
+    }
+
+    // Get role attributes
+    $roleAttributes = getRoleAttributes($user['role']);
+
+    // Fetch role values from specific tables
+    $query = "SELECT * FROM {$user['role']} WHERE account_id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $success = $statement->execute();
+
+    if ($success) {
+        $roleDetails = $statement->fetch(PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+    } else {
+        return false; // Check success
+    }
+
+    // Merge the array
+    $userAttributes = array_merge($user, $roleDetails);
+
+    return $userAttributes;
+}
+
+function getRoleAttributes($role)
+{
+    $attributes = [];
+
+    switch ($role) {
+        case 'band_member':
+            $attributes = ['name', 'phoneNumber', 'email', 'instrument'];
+            break;
+        case 'venue_coordinator':
+            $attributes = ['name', 'phoneNumber', 'email', 'title', 'budget'];
+            break;
+        default:
+            // Break if none
+            break;
+    }
+
+    return $attributes;
+}
+
 ?>

@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head> 
   <meta charset="UTF-8">  
@@ -26,37 +26,27 @@
       <?php
         require("connect-db.php");
         require("gigbyte-db.php");
-        require("gigFunctions.php");
+       
         session_start();
 
         if (isset($_SESSION["id"])) {
           $id = $_SESSION["id"];
-          $query = "SELECT * FROM users WHERE id = :id";
-          $statement = $db->prepare($query);
-          $statement->bindValue(':id', $id);
-          $success = $statement->execute();
+          $userAttributes = getUserAttributes($id);
 
-          if (!$success) {
-            echo "<p>Error executing query. Please try again later.</p>";
-          } else {
-            $user = $statement->fetch(PDO::FETCH_ASSOC);
-            $statement->closeCursor();
+          if ($userAttributes !== false) {
+            echo "<p class='lead'>Welcome, {$userAttributes['id']}!</p>";
+            echo "<p>Your role: {$userAttributes['role']}</p>";
 
-            if ($user) {
-              echo "<p class='lead'>Welcome, " . $user['id'] . "!</p>";
-              echo "<p>Your role: " . $user['role'] . "</p>";
+            // Get role attributes
+            $roleAttributes = getRoleAttributes($userAttributes['role']);
 
-              // Get role-specific attributes
-              $roleAttributes = getRoleAttributes($user['role']);
-
-              // Display user attributes, need to fix just shows N/A
-              foreach ($roleAttributes as $attribute) {
-                echo "<p>{$attribute}: " . ($user[$attribute] ?? 'N/A') . "</p>";
-              }
-            } else {
-              echo "<p class='lead'>Welcome, Guest!</p>";
-              echo "<p>No user found with ID: $id</p>";
+            // User attributes
+            foreach ($roleAttributes as $attribute) {
+                echo "<p>{$attribute}: " . ($userAttributes[$attribute] ?? 'N/A') . "</p>";
             }
+          } else {
+            echo "<p class='lead'>Welcome, Guest!</p>";
+            echo "<p>No user found with ID: $id</p>";
           }
         } else {
           echo "<p class='lead'>Welcome, Guest!</p>";
