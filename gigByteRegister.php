@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Register</h2>
 <form action="gigByteRegister.php" method="post">
-    <label for="id">ID:</label>
+    <label for="id">ID (Numeric 6-Digit Unique ID):</label>
     <input type="text" name="id" required><br>
 
     <label for="password">Password:</label>
