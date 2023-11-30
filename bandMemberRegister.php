@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "Band member registration successful!";
     header("Location: login.php");
+    echo "Congrats you have sucesfully created an account, please log in now"
     exit();
 }
 ?>

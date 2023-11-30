@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<?php include("header.html");?>
+<?php include("header.php");?>
 
 <div class="container"> 
 <header class="jumbotron text-center">
