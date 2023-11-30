@@ -174,6 +174,31 @@ function getAllBandMembers()
     return $results;
 }
 
+function addBandMemberToBand($member_id, $band_id)
+{
+    global $db;
+    $query = "insert into plays_in value (:member_id, :band_id)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":member_id", $member_id);
+    $statement->bindValue(":band_id", $band_id);
+    $statement->execute();
+    $results = $statement->fetchAll(); 
+    $statement->closeCursor();
+    return $results;
+}
+
+function removeBandMemberFromBand($member_id, $band_id)
+{
+    global $db;
+    $query = "delete from plays_in where account_id=:member_id and band_id=:band_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":member_id", $member_id);
+    $statement->bindValue(":band_id", $band_id);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
 
 // Gig Functions
 
