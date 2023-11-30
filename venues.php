@@ -10,7 +10,7 @@
   
 </head>
 <body>
-<?php include("header.html");?>
+<?php include("header.php");?>
 <header class="jumbotron text-center">
     <p class="lead">All Venues</p>
 </header>

@@ -27,7 +27,7 @@ $list_of_band_members = getAllBandMembers();
 
 
 <body>
-<?php include("header.html");?>
+<?php include("header.php");?>
 
 
 <h1 style="text-align: center">Band Members By Band</h1>

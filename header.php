@@ -41,10 +41,13 @@ if (isset($_POST["signout"])) {
                 <?php
                 // Check if the user is logged in
                 if (isset($_SESSION["id"])) {
-                    echo '<form class="nav-link" method="post" action="index.php">
-                            <input type="submit" name="signout" value="Sign Out" class="btn btn-link">                              </form>';
+                    echo '<li class="nav-item">
+                            <form class="nav-link" method="post" action="index.php">
+                                <input type="submit" name="signout" value="Sign Out" class="btn btn-link">
+                            </form>
+                        </li>';
                 } else {
-                    echo '<a class="nav-link" href="login.php">Login</a>';
+                    echo '<li class="nav-item d-none d-md-block"><a class="nav-link" href="login.php">Login</a></li>';
                 }
                 ?>
             </li>

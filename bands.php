@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 </head>
 
 <body>
-    <?php include("header.html");?>
+    <?php include("header.php");?>
     <br>
     <div class="container">
         <div class="row mb-3 mx-3 form-section">

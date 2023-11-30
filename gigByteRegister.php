@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: bandMemberRegister.php?id=$id");
         exit();
     } elseif ($role === "venue_coordinator") {
-        header("Location: venue_coordinator_registration.php?id=$id");
+        header("Location: venueCoordinatorRegister.php?id=$id");
         exit();
     } else {
         echo "Invalid role.";
