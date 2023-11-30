@@ -268,6 +268,30 @@ function getAllFilledGigs()
 }
 
 
+function addBandToGig($band_id, $gig_id)
+{
+    global $db;
+    $query = "insert into performs_at(band_id, gig_id) value(:band_id, :gig_id)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":band_id", $band_id);
+    $statement->bindValue(":gig_id", $gig_id);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    return $result;
+}
+
+function removeBandFromGig($gig_id)
+{
+    global $db;
+    $query = "delete from performs_at where gig_id=:gig_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":gig_id", $gig_id);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    return $result;
+}
+
+
 // Venues Functions
 function getAllVenues()
 {

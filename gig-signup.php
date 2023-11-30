@@ -6,7 +6,24 @@ $list_of_gig_info = getAllGigsInfo();
 $all_venues = getAllVenues();
 $open_gigs = getAllOpenGigs();
 $filled_gigs = getAllFilledGigs();
+$all_bands = getAllBands();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    if (!empty($_POST['gig']) && !empty($_POST['band'])) 
+    {
+        addBandToGig($_POST['band'], $_POST['gig']);
+        $open_gigs = getAllOpenGigs();
+        $filled_gigs = getAllFilledGigs();
+    }
+    elseif(!empty($_POST['removeGigBtn']))
+    {
+        removeBandFromGig($_POST['gigToRemove']);
+        $open_gigs = getAllOpenGigs();
+        $filled_gigs = getAllFilledGigs();
+    }
+    
+
+}
 ?>
 <!DOCTYPE html> 
 <html> 
@@ -16,7 +33,14 @@ $filled_gigs = getAllFilledGigs();
   <meta name="author" content="Maggie O'Connor and Robbie Boyle">
   <meta name="description" content="index page for gigByte">  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  
+  <style>
+        .rounded-box {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -56,7 +80,33 @@ $filled_gigs = getAllFilledGigs();
             </tbody>
         </table>
 </div>
-    
+<div class="rounded-box">
+<h2 style="text-align: center;">Sign Up</h2>
+<p style="text-align: center; text-decoration: underline;">Select Gig and Band</p>
+    <form action="gig-signup.php" method="post" style="text-align: center;">
+
+        <label for="gig">Select a Gig:</label>
+        <select id="gig" name="gig">
+            <?php foreach($open_gigs as $gig):?>
+                <option value="<?php echo $gig['gig_id']?>"><?php echo $gig['name']?></option>
+            <?php endforeach;?>
+        </select>
+
+        <br>
+
+        <label for="band">Select a Band:</label>
+        <select id="band" name="band">
+            <?php foreach($all_bands as $band):?>
+                <option value="<?php echo $band['band_id']?>"><?php echo $band['name']?></option>
+            <?php endforeach;?>
+        </select>
+
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+
+    </form>
+</div>
 <br>
 <br>
 <br>
@@ -79,7 +129,13 @@ $filled_gigs = getAllFilledGigs();
                         <td><?php echo $gig['start_time']?></td>
                         <td><?php echo $gig['bname']?></td>
                         <td><?php echo $gig['vname']?></td>
-                        <td><?php echo $gig['address']?></td>                   
+                        <td><?php echo $gig['address']?></td>     
+                        <td>
+                            <form action="gig-signup.php" method="post">                           
+                                <input type="submit" value="Remove" name="removeGigBtn" class="btn btn-danger" title="Delete Gig" />                           
+                                <input type="hidden" name="gigToRemove" value="<?php echo $gig['gig_id']; ?>"/>
+                            </form>
+                        </td>              
                     </tr>   
                 <?php endforeach;?>
             </tbody>
