@@ -247,6 +247,27 @@ function deleteGig($gigIdToDelete)
 }
 
 
+function getAllOpenGigs()
+{
+    global $db;
+    $query = "SELECT gig_id, gig_info.name, start_time, venue.venue_id, venue.name as vname, venue.address FROM ( SELECT gig.gig_id, gig.name, gig.start_time, gig.venue_id FROM gig LEFT JOIN performs_at ON gig.gig_id = performs_at.gig_id WHERE performs_at.gig_id IS NULL ) AS gig_info JOIN venue ON venue.venue_id = gig_info.venue_id;";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    return $result;
+}
+
+function getAllFilledGigs()
+{
+    global $db;
+    $query = "select gig.gig_id, gig.name as gname, gig.start_time, band.band_id, band.name as bname, venue.name as vname, venue.venue_id, venue.address from gig, performs_at, band, venue where gig.gig_id = performs_at.gig_id and performs_at.band_id = band.band_id and gig.venue_id = venue.venue_id;";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    return $result;
+}
+
+
 // Venues Functions
 function getAllVenues()
 {

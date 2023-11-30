@@ -88,12 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tbody>
         </table>
     </div>
+    <div class="container mb-3" style="text-align: center">
+        <a class="btn btn-dark" href="gig-signup.php">Sign Up For A Gig!</a>
+    </div>
+    <br>
+    <br>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
     <div class="container mt-5">
     <h1 class="lead" style="text-align: center">Post A Gig</h1>
@@ -129,6 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          
         <br>
     </form>
+
+    
+
+
 </div>
 
     <?php include("footer.html");?>   
