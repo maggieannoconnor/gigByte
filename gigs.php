@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include("header.php");?>
     <header class="jumbotron text-center">
-        <h1>Open Gigs</h1>
+        <h1>All Gigs</h1>
     </header>
 
 

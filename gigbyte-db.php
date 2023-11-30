@@ -150,7 +150,7 @@ function getMembersByBandID($band_id)
 {
     global $db;
 
-    $query = 'select distinct band_member.name, band_member.instrument from band_member, plays_in, band where plays_in.account_id = band_member.account_id and plays_in.band_id = band.band_id and band.band_id = :band_id;';
+    $query = 'select distinct band_member.account_id, band_member.name, band_member.instrument from band_member, plays_in, band where plays_in.account_id = band_member.account_id and plays_in.band_id = band.band_id and band.band_id = :band_id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':band_id', $band_id);
     $statement->execute();
@@ -174,10 +174,21 @@ function getAllBandMembers()
     return $results;
 }
 
+function getMemberById( $id )
+{
+    global $db;
+    $query = "select * from band_member where account_id=:id;";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
 function addBandMemberToBand($member_id, $band_id)
 {
     global $db;
-    $query = "insert into plays_in value (:member_id, :band_id)";
+    $query = "insert into plays_in value (:member_id, :band_id);";
     $statement = $db->prepare($query);
     $statement->bindValue(":member_id", $member_id);
     $statement->bindValue(":band_id", $band_id);
@@ -194,6 +205,32 @@ function removeBandMemberFromBand($member_id, $band_id)
     $statement = $db->prepare($query);
     $statement->bindValue(":member_id", $member_id);
     $statement->bindValue(":band_id", $band_id);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
+function addMembersToPlayedWith($member_id1, $member_id2)
+{
+    global $db;
+    $query = "insert into played_with values (:member_id1, :member_id2), (:member_id2, :member_id1)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":member_id1", $member_id1);
+    $statement->bindValue(":member_id2", $member_id2);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
+function getMemberPlayedWithByMemberId($member_id)
+{
+    global $db;
+    $query = "SELECT DISTINCT * FROM played_with, band_member
+    WHERE played_with.account_id1 = :member_id AND played_with.account_id2 = band_member.account_id;";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":member_id", $member_id);
     $statement->execute();
     $results = $statement->fetchAll();
     $statement->closeCursor();

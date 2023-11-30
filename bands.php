@@ -5,8 +5,9 @@ require("gigbyte-db.php");
 $list_of_bands = getAllBands();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Handling different form submissions
     if (!empty($_POST['updateBtn'])) {
-        //echo $_POST['id_to_update'];
+        // Process update
     } elseif (!empty($_POST['insertBtn'])) {
         addBand($_POST['bandname'], $_POST['genre'], $_POST['phone'], $_POST['instagram']);
         $list_of_bands = getAllBands();
@@ -18,24 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $list_of_bands = getAllBands();
     }
 }
-/*
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-  $list_of_bands = getAllBands();
-  $string = $_GET['filter'];
-  echo $string;
-  if(!empty($string)) {
-    echo ($string);
-    $list_of_bands = performBandSearch($string);
-  } else {
-    
-  }
-  //echo $list_of_bands;
-}
-*/
 ?>
 
 <!DOCTYPE html> 
-<html> 
+<html lang="en"> 
 <head> 
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,16 +32,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         .center {
             margin: auto;
         }
+
         .table-header {
             background-color: #B0A6B0;
         }
+
         .form-section {
             border: 1px solid black;
             text-align: center;
+            margin-bottom: 20px;
         }
+
         .form-title {
             text-align: center;
+            margin-bottom: 20px;
         }
+
+        .form-control {
+            width: 100%;
+        }
+
         .form-buttons {
             margin-top: 20px;
         }
@@ -62,15 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 </head>
 
 <body>
-    <?php include("header.php");?>
-    <br>
+    <?php include("header.php"); ?>
     <div class="container">
+        <!-- All Bands -->
         <div class="row mb-3 mx-3 form-section">
             <h1 class="form-title">All Bands</h1> 
         </div>  
-        <hr/>
-        <div class="row justify-content-center">  
-            <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
+        <hr />
+        <div class="row justify-content-center">
+            <table class="table table-bordered table-card center" style="width:70%">
                 <thead>
                     <tr class="table-header">
                         <th width="20%">Name</th>
@@ -121,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         </div>   
         <br>
         <hr>
+        <!-- Add A Band -->
         <div class="flex-grow-1">
             <div class="container mt-4 form-section">
                 <div class="row mb-3 mx-3">
