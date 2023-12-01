@@ -88,10 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tbody>
         </table>
     </div>
+    <br>
     <div class="container mb-3" style="text-align: center">
         <a class="btn btn-dark" href="gig-signup.php">Sign Up For A Gig!</a>
     </div>
     <br>
+    <div class="container mb-3" style="text-align: center">
+        <a class="btn btn-info" href="gig-review.php">See Band Reviews</a>
+    </div>
     <br>
 
 

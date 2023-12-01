@@ -279,6 +279,7 @@ function addBandToGig($band_id, $gig_id)
     $statement->bindValue(":gig_id", $gig_id);
     $statement->execute();
     $result = $statement->fetchAll();
+
     return $result;
 }
 
@@ -290,7 +291,20 @@ function removeBandFromGig($gig_id)
     $statement->bindValue(":gig_id", $gig_id);
     $statement->execute();
     $result = $statement->fetchAll();
+
     return $result;
+}
+
+function getAllReviews()
+{
+    global $db;
+    $query = "SELECT band.name as bname, Rating, reviews.Comments, gig.name as gname, venue_coordinator.name as vname FROM reviews, venue_coordinator, gig, band WHERE reviews.account_id = venue_coordinator.account_id AND reviews.band_id = band.band_id AND reviews.gig_id = gig.gig_id;";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+
+    return $result;
+
 }
 
 
