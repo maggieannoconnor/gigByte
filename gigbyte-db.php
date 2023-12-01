@@ -99,6 +99,17 @@ function getMembersByBandID($band_id)
     return $results;
 }
 
+function getAllSortedBands()
+{
+    global $db;
+    $query = 'select * from band ORDER BY avg_rating DESC;';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
 
 
 // Band Member Functions
@@ -307,6 +318,31 @@ function getAllReviews()
 
 }
 
+function addReview($account_id, $band_id, $gig_id, $rating, $comment)
+{
+    global $db;
+    $query = "insert into reviews value(:account_id, :band_id, :gig_id, :rating, :comment)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":account_id", $account_id);
+    $statement->bindValue(":band_id", $band_id);
+    $statement->bindValue(":gig_id", $gig_id);
+    $statement->bindValue(":rating", $rating);
+    $statement->bindValue(":comment", $comment);
+    $statement->execute();
+    $statement->closeCursor();
+
+}
+
+function updateAverageRating($band_id)
+{
+    global $db;
+    $query = "SET @p0=:band_id; CALL `calculateAvgRating`(@p0);";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":band_id", $band_id);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
 
 // Venues Functions
 function getAllVenues()
@@ -320,6 +356,16 @@ function getAllVenues()
     return $result;
 }
 
+function getAllVenueCoordinators()
+{
+    global $db;
+    $query = 'select * from venue_coordinator';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    $statement->closeCursor();
+    return $result;
+}
 
 
 
