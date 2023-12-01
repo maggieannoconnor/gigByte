@@ -401,10 +401,6 @@ function deleteVenue($venue_id)
     $statement->closeCursor();
 }
 
-?>
-
-
-
 
 
 // User Functions
