@@ -367,6 +367,42 @@ function getAllVenueCoordinators()
     return $result;
 }
 
+function addVenue($name, $address)
+{
+    global $db;
+    $query = "insert into venue(venue_id, name, address) value (:id, :name , :address) ";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', rand(10,10000));
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':address', $address);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function updateVenue($venue_id, $name, $address)
+{
+    global $db;
+    $query = "update venue set name=:name, address=:address where venue_id=:venue_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':venue_id', $venue_id);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':address', $address);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function deleteVenue($venue_id)
+{
+    global $db;
+    $query = "delete from venue where venue_id=:venue_id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':venue_id', $venue_id);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+?>
+
 
 
 
