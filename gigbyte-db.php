@@ -465,4 +465,34 @@ function getRoleAttributes($role)
     return $attributes;
 }
 
+function updateBandMember($id, $name, $phoneNumber, $email, $instrument)
+{
+    global $db;
+
+    $query = "UPDATE band_member SET name = :name, phoneNumber = :phoneNumber, email = :email, instrument = :instrument WHERE account_id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':phoneNumber', $phoneNumber);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':instrument', $instrument);
+    $statement->execute();
+}
+
+function updateVenueCoordinator($id, $name, $phoneNumber, $email, $title, $budget)
+{
+    global $db;
+
+    $query = "UPDATE venue_coordinator SET name = :name, phoneNumber = :phoneNumber, email = :email, title = :title, budget = :budget WHERE account_id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':phoneNumber', $phoneNumber);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':budget', $budget);
+    $statement->execute();
+}
+
+
 ?>
