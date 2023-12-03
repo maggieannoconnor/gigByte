@@ -43,7 +43,7 @@ if  ($_SERVER['REQUEST_METHOD'] == 'POST')
   <!-- <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" /> -->
 </head>
 <body>
-  <?php include("header.html");?>
+  <?php include("header.php");?>
   <h3>Add Venue</h3>  
   <form name="mainForm" action="venues.php" method="post"> 
     <input type="hidden" class="form-control" name="venue_id" required 
