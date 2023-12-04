@@ -9,7 +9,7 @@ require("gigbyte-db.php");
 $list_of_venues = getAllVenues();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['updateBtn'])) {
-        echo $_POST['venuename_to_update'];
+        //echo $_POST['venuename_to_update'];
     } else if (!empty($_POST['confirmUpdateBtn'])) {
         updateVenue($_POST['venue_id'], $_POST['name'], $_POST['address']);
         $list_of_venues = getAllVenues();
@@ -41,8 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <?php include("header.php"); ?>
-    <div class="mx-4">
+    <div class="container">
         <h3>Venues</h3>
+        <hr />
         <?php foreach ($list_of_venues as $venue): ?>
         <div class="card d-flex mb-3">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </h5>
                 </div>
 
-                <div class="p-2">
+                <div class="px-1">
                     <form action="venues.php" method="post">
                         <input type="submit" value="Update" name="updateBtn" class="btn btn-secondary mr-2" />
                         <!--pass in all information that could be updated-->
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
 
-                <div class="p-2">
+                <div class="px-1">
                     <form action="venues.php" method="post">
                         <input type="submit" value="Delete" name="deleteBtn" class="btn btn-danger" />
                         <input type="hidden" name="venueid_to_delete"
@@ -80,26 +81,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <?php endforeach; ?>
-
+<br>
+<br>
+<br>
     <h3>Add Venue</h3>
     <form name="mainForm" action="venues.php" method="post">
         <input type="hidden" class="form-control" name="venue_id" required
             value="<?php echo $_POST['venueid_to_update']; ?>" />
-        <div class="row mb-3 mx-3">
+        <div class="row mb-3 mx-2">
             Venue Name:
             <input type="text" class="form-control" name="name" required
                 value="<?php echo $_POST['venuename_to_update']; ?>" />
         </div>
-        <div class="row mb-3 mx-3">
+        <div class="row mb-3 mx-2">
             Address:
             <input type="text" class="form-control" name="address" required
                 value="<?php echo $_POST['venueaddress_to_update']; ?>" />
         </div>
-        <div class="row mb-3 mx-3">
-            <input type="submit" value="Add Venue" name="actionBtn" class="btn btn-primary"
+        <div class="row mb-3 mx-2" >
+            <input type="submit" value="Add Venue" name="actionBtn" class="btn" style="background-color: #232D4B; color:white;"
                 title="Insert a venue into venue" required />
         </div>
-        <div class="row mb-3 mx-3">
+        <div class="row mb-3 mx-2">
             <input type="submit" value="Confirm Update" name="confirmUpdateBtn" class="btn btn-secondary"
                 title="Update a venues's information" required />
         </div>

@@ -45,8 +45,8 @@ if (isset($_POST["signout"])) {
                                 <a class="nav-link" href="account.php">Account</a>
                             </li>
                             <li class="nav-item">
-                                <form class="nav-link" method="post" action="index.php">
-                                    <input type="submit" name="signout" value="Sign Out" class="btn btn-link">
+                                <form method="post" action="index.php">
+                                    <input type="submit" name="signout" value="Sign Out" class="btn btn-link nav-link">
                                 </form>
                             </li>';
                     } else {

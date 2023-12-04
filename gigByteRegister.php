@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Next</button>
+            <button type="submit" class="btn" style="background-color: #232D4B; color:white">Next</button>
         </form>
     </div>
 </div>

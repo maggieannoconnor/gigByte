@@ -21,8 +21,9 @@
 
 
 
+
 <img src="gigbyte-icon.jpg" width="300" height="300" style="text-align: center">
-
+</div>
 <br>
 <br>
 <br>
@@ -33,6 +34,6 @@
 <br>
 
 
-<?php include("footer.html");?>   
+<?php include("footer.html"); ?>
 </body>
 </html>

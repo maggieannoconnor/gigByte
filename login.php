@@ -11,7 +11,7 @@
 
 <div class="container mt-5">
     <div class="col-md-6 offset-md-3">
-        <h2 class="text-center mb-4">Welcome to gigByte! Please Login</h2>
+        <h2 class="text-center mb-4" style="color: #232D4B;">Welcome to gigByte! Please Login</h2>
         <form action="login.php" method="post">
             <div class="form-group">
                 <label for="id">ID:</label>
@@ -23,10 +23,10 @@
                 <input type="password" class="form-control" name="password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn" style="background-color: #232D4B; color:white">Login</button>
         </form>
 
-        <p class="mt-3">Don't have an account? <a href="gigByteRegister.php">Create One Here!</a>.</p>
+        <p class="mt-3">Don't have an account? <a href="gigByteRegister.php" >Create One Here!</a>.</p>
     </div>
 </div>
 
