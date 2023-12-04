@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateUserBtn'])) {
         exit();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -82,73 +81,76 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateUserBtn'])) {
     <div class="content">
         <header class="jumbotron text-center">
             <?php
-                if (isset($_SESSION["id"])) {
-                    $id = $_SESSION["id"];
-                    $userAttributes = getUserAttributes($id);
+            if (isset($_SESSION["id"])) {
+                $id = $_SESSION["id"];
+                $userAttributes = getUserAttributes($id);
 
-                    if ($userAttributes !== false) {
-                        echo "<p class='lead'>Welcome, {$userAttributes['id']}!</p>";
-                        echo "<p>Your role: {$userAttributes['role']}</p>";
+                if ($userAttributes !== false) {
+                    echo "<p class='lead'>Welcome, {$userAttributes['id']}!</p>";
+                    echo "<p>Your role: {$userAttributes['role']}</p>";
 
-                        // Get role attributes
-                        $roleAttributes = getRoleAttributes($userAttributes['role']);
-                        
-                        // User 
-                        foreach ($roleAttributes as $attribute) {
-                            echo "<p>{$attribute}: " . ($userAttributes[$attribute] ?? 'N/A') . "</p>";
-                        }
-                    } else {
-                        echo "<p class='lead'>Welcome, Guest!</p>";
-                        echo "<p>No user found with ID: $id</p>";
+                    // Get role attributes
+                    $roleAttributes = getRoleAttributes($userAttributes['role']);
+
+                    // User 
+                    foreach ($roleAttributes as $attribute) {
+                        echo "<p>{$attribute}: " . ($userAttributes[$attribute] ?? 'N/A') . "</p>";
                     }
-                } else {
-                    echo "<p class='lead'>Welcome, Guest!</p>";
+
+                    // Display Edit User Info Container only for logged-in users
+                    ?>
+                    <!-- Edit User Info Container -->
+                    <div class="container form-section">
+                        <h1 class="form-title">Edit User Info</h1>
+                        <form name="editUserForm" action="account.php" method="post">
+                            <div class="row mb-3 mx-3">
+                                Name:
+                                <input type="text" class="form-control" name="name"
+                                    value="<?php echo $userAttributes['name'] ?? ''; ?>" />
+                            </div>
+                            <div class="row mb-3 mx-3">
+                                Phone Number:
+                                <input type="text" class="form-control" name="phoneNumber"
+                                    value="<?php echo $userAttributes['phoneNumber'] ?? ''; ?>" />
+                            </div>
+                            <div class="row mb-3 mx-3">
+                                Email:
+                                <input type="text" class="form-control" name="email"
+                                    value="<?php echo $userAttributes['email'] ?? ''; ?>" />
+                            </div>
+
+                            <?php if ($userAttributes['role'] == 'band_member') : ?>
+                                <div class="row mb-3 mx-3">
+                                    Instrument:
+                                    <input type="text" class="form-control" name="instrument"
+                                        value="<?php echo $userAttributes['instrument'] ?? ''; ?>" />
+                                </div>
+                            <?php elseif ($userAttributes['role'] == 'venue_coordinator') : ?>
+                                <div class="row mb-3 mx-3">
+                                    Title:
+                                    <input type="text" class="form-control" name="title"
+                                        value="<?php echo $userAttributes['title'] ?? ''; ?>" />
+                                </div>
+                                <div class="row mb-3 mx-3">
+                                    Budget:
+                                    <input type="text" class="form-control" name="budget"
+                                        value="<?php echo $userAttributes['budget'] ?? ''; ?>" />
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="form-buttons">
+                                <button type="submit" class="btn btn-primary" name="updateUserBtn">Update User Info</button>
+                            </div>
+                        </form>
+                    </div>
+                    <?php
                 }
+            } else {
+                echo "<p class='lead'>Welcome, Guest!</p>";
+                echo "<p class='lead'>Please sign in to see account information.</p>";
+            }
             ?>
         </header>
-
-        <!-- Edit User Info Container -->
-        <div class="container form-section">
-            <h1 class="form-title">Edit User Info</h1>
-            <form name="editUserForm" action="account.php" method="post">
-                <div class="row mb-3 mx-3">
-                    Name:
-                    <input type="text" class="form-control" name="name" value="<?php echo $userAttributes['name'] ?? ''; ?>" />
-                </div>
-                <div class="row mb-3 mx-3">
-                    Phone Number:
-                    <input type="text" class="form-control" name="phoneNumber"
-                        value="<?php echo $userAttributes['phoneNumber'] ?? ''; ?>" />
-                </div>
-                <div class="row mb-3 mx-3">
-                    Email:
-                    <input type="text" class="form-control" name="email"
-                        value="<?php echo $userAttributes['email'] ?? ''; ?>" />
-                </div>
-                <?php if ($userAttributes['role'] == 'band_member') : ?>
-                <div class="row mb-3 mx-3">
-                    Instrument:
-                    <input type="text" class="form-control" name="instrument"
-                        value="<?php echo $userAttributes['instrument'] ?? ''; ?>" />
-                </div>
-                <?php elseif ($userAttributes['role'] == 'venue_coordinator') : ?>
-                <div class="row mb-3 mx-3">
-                    Title:
-                    <input type="text" class="form-control" name="title"
-                        value="<?php echo $userAttributes['title'] ?? ''; ?>" />
-                </div>
-                <div class="row mb-3 mx-3">
-                    Budget:
-                    <input type="text" class="form-control" name="budget"
-                        value="<?php echo $userAttributes['budget'] ?? ''; ?>" />
-                </div>
-                <?php endif; ?>
-                <div class="form-buttons">
-                    <button type="submit" class="btn btn-primary" name="updateUserBtn">Update User Info</button>
-                </div>
-            </form>
-        </div>
-
     </div>
 
     <?php include("footer.html"); ?>
