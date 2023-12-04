@@ -13,6 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $role = $_POST["role"];
 
+    // Security sanitization for ID
+    if (!is_numeric($id) || strlen($id) < 6) {
+        echo "Invalid ID. Please enter a numeric ID with at least 6 digits.";
+        exit();
+    }
+
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO users (id, password, role) VALUES (:id, :password, :role)";
@@ -45,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Register</h2>
 <form action="gigByteRegister.php" method="post">
     <label for="id">ID (Numeric 6-Digit Unique ID):</label>
-    <input type="text" name="id" required><br>
+    <input type="text" name="id" pattern="\d{6,}" title="Please enter a numeric ID with at least 6 digits" required><br>
 
     <label for="password">Password:</label>
     <input type="password" name="password" required><br>
