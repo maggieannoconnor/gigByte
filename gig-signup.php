@@ -38,34 +38,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border: 2px solid #ddd;
             border-radius: 10px;
             padding: 40px;
-            margin: 10px 0;
+            margin: 5px 0;
         }
     </style>
 </head>
 
 <body>
-<?php include("header.html");?>
+<?php include("header.php");?>
 
 <div class="container"> 
-<header class="jumbotron text-center">
-    <h1 class="display-4">Sign Up For A Gig</h1>
-
-</header>
-<div class="container mb-3" style="text-align: left">
-    <a class="btn btn-danger" href="gigs.php">Back to Gigs</a>
+    <h3 >Sign Up For A Gig</h3>
+    <hr>
+    <a class="btn" style="background-color: #232D4B; color:white;" href="gigs.php">Back to Gigs</a>
 </div>
 
-
 <h3 style="text-align: center;">Open Gigs:</h3>
-<div class="row justify-content-center">  
-        <table class="w3-table w3-bordered w3-card-4 center" style="width:80%">
+<div class="row justify-content-center">
+        <table class="table table-bordered table-card center" style="width:80%">
             <thead>
-                <tr style="background-color:#B0A6B0">
+                <tr style="background-color: #232D4B; color:white;">
                     <th width="20%">Gig</th>
                     <th width="20%">Start Time</th>
                     <th width="20%">Venue</th>
                     <th width="25%">Address</th>
-                    <th width="15%"></th>
+                    <th width="15%">Band</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,9 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tbody>
         </table>
 </div>
-<div class="rounded-box">
+<div class=" container center rounded-box mx-auto w-50">
 <h2 style="text-align: center;">Sign Up</h2>
-<p style="text-align: center; text-decoration: underline;">Select Gig and Band</p>
     <form action="gig-signup.php" method="post" style="text-align: center;">
 
         <label for="gig">Select a Gig:</label>
@@ -103,23 +98,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <br>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn" style="background-color: #232D4B; color:white;" value="Submit">
 
     </form>
 </div>
 <br>
-<br>
-<br>
 <h3 style="text-align: center;"> Filled Gigs:</h3>
-<div class="row justify-content-center">  
-        <table class="w3-table w3-bordered w3-card-4 center" style="width:80%">
+<div class="row justify-content-center">
+        <table class="table table-bordered table-card center" style="width:80%">
             <thead>
-                <tr style="background-color:#B0A6B0">
+                <tr style="background-color: #232D4B; color:white;">
                     <th width="20%">Gig</th>
                     <th width="20%">Start Time</th>
-                    <th width="20%">Band</th>
                     <th width="20%">Venue</th>
                     <th width="20%">Address</th>
+                    <th width="20%">Band</th>
+                    <th width="20%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -127,9 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <tr>
                         <td><?php echo $gig['gname']?></td>
                         <td><?php echo $gig['start_time']?></td>
-                        <td><?php echo $gig['bname']?></td>
                         <td><?php echo $gig['vname']?></td>
-                        <td><?php echo $gig['address']?></td>     
+                        <td><?php echo $gig['address']?></td>
+                        <td><?php echo $gig['bname']?></td>    
                         <td>
                             <form action="gig-signup.php" method="post">                           
                                 <input type="submit" value="Remove" name="removeGigBtn" class="btn btn-danger" title="Delete Gig" />                           
@@ -146,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <br>
 
-
+</div>
 <?php include("footer.html");?>   
 </body>
 </html>

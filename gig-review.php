@@ -43,20 +43,18 @@ foreach($all_bands as $bands) {
 
 <body>
 <?php include("header.php");?>
-
 <div class="container"> 
-<header class="jumbotron text-center">
-    <h2 class="display-4">Reviews</h2>
-    <p class="lead">See Reviews From Previous Gigs</p>
-</header>
-<div class="container mb-3" style="text-align: left">
-    <a class="btn btn-danger" href="gigs.php">Back to Gigs</a>
+<h3 >Band Reviews</h3>
+<p>See Reviews From Previous Gigs</p>
+<hr>
+<a class="btn" style="background-color: #232D4B; color:white;" href="gigs.php">Back to Gigs</a>
+<br>
+<br>
 </div>
-
 <div class="row justify-content-center">  
-        <table class="w3-table w3-bordered w3-card-4 center" style="width:90%">
+        <table class="table table-bordered table-card center" style="width:80%">
             <thead>
-                <tr style="background-color:#B0A6B0">
+                <tr style="background-color: #232D4B; color:white;">
                     <th width="15%">Band</th>
                     <th width="15%">Rating</th>
                     <th width="40%">Review</th>
@@ -77,17 +75,17 @@ foreach($all_bands as $bands) {
             </tbody>
         </table>
 </div>
-
-
-
 <br>
-<div class="row justify-content-left">  
-        <table class="w3-table w3-bordered w3-card-4 center" style="width:50%">
-            <h4 style="text-align: justify;">Band Ratings</h4>
+<div class="container"> 
+<h3 >Band Ratings</h3>
+<hr>
+</div>
+<div class="row justify-content-center">  
+<table class="table table-bordered table-card center" style="width:40%">
             <thead>
-                <tr style="background-color:#B0A6B0">
-                    <th width="50%">Band</th>
-                    <th width="50%">Rating</th>
+                <tr style="background-color: #232D4B; color:white;">
+                    <th width="70%">Band</th>
+                    <th width="30%">Rating</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,11 +101,13 @@ foreach($all_bands as $bands) {
             </tbody>
         </table>
 </div>
+<div class="container">
+    <h3 >Add A Review</h3>
+    <hr>
+</div>
 <div class="row justify-content-center">
     <div class="rounded-box p-4">
         <form action="gig-review.php" method="post" class="w-75 mx-auto">
-            <h4 class="text-center mb-4">Add a Review</h4>
-
             <div class="mb-3">
                 <label for="band" class="form-label">Select a Band:</label>
                 <select id="band" name="band" class="form-select">
@@ -146,7 +146,7 @@ foreach($all_bands as $bands) {
             </div>
 
             <div class="text-center">
-                <input type="submit" value="Submit Review" class="btn btn-primary">
+                <input type="submit" value="Submit Review" class="btn" style="background-color: #232D4B; color:white;">
             </div>
         </form>
     </div>
