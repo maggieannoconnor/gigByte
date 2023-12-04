@@ -18,15 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     {
         deleteGig($_POST['gigIdToDelete']);
         $list_of_gig_info = getAllGigsInfo();
-
     }
-    elseif(!empty($_POST['addGigBtn']))
-    {
-      
-      addGig($_POST["gigName"], $_POST["startTime"], $_POST["endTime"], $_POST["venue"]);
-      $list_of_gig_info = getAllGigsInfo();
-    }
-
 }
 ?>
 
@@ -42,29 +34,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <?php include("header.php");?>
-    <header class="jumbotron text-center">
-        <h1>All Gigs</h1>
-    </header>
-
+    <div class="container">
+    <h3 >Gigs</h3>
+    <hr>
+    <a href="gigs-add.php" class="btn" style="background-color: #232D4B; color:white;" role="button" name="addgigbutton">
+        Post A Gig
+    </a>
+    <br>
+    <br>
+    </div>
 
     <div class="container mb-3">
         <form action="" method="post">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search by gig name/venue/address" name="search">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                <button class="btn" style="background-color: #232D4B; color:white;" type="submit">Search</button>
             </div>
         </form>
     </div>
 
     <div class="row justify-content-center">  
-        <table class="w3-table w3-bordered w3-card-4 center" style="width:80%">
+        <table class="table table-bordered table-card center" style="width:80%">
             <thead>
-                <tr style="background-color:#B0A6B0">
+                <tr style="background-color: #232D4B; color:white;">
                     <th width="20%">Gig</th>
                     <th width="20%">Start Time</th>
                     <th width="20%">Venue</th>
-                    <th width="25%">Address</th>
-                    <th width="15%"></th>
+                    <th width="32%">Address</th>
+                    <th width="8%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -90,55 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <br>
     <div class="container mb-3" style="text-align: center">
-        <a class="btn btn-dark" href="gig-signup.php">Sign Up For A Gig!</a>
+        <a class="btn" style="background-color: #232D4B; color:white;" href="gig-signup.php">Sign Up For A Gig!</a>
     </div>
-    <br>
     <div class="container mb-3" style="text-align: center">
-        <a class="btn btn-info" href="gig-review.php">See Band Reviews</a>
+        <a class="btn" style="background-color: #232D4B; color:white;" href="gig-review.php">See Band Reviews</a>
     </div>
     <br>
-
-
-    <div class="container mt-5">
-    <h1 class="lead" style="text-align: center">Post A Gig</h1>
-    <form action="gigs.php" method="post">
-        <div class="mb-3">
-            <label for="gigName" class="form-label">Gig Name:</label>
-            <input type="text" class="form-control" id="gigName" name="gigName" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="startTime" class="form-label">Start Time:</label>
-            <input type="datetime-local" class="form-control" id="startTime" name="startTime" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="endTime" class="form-label">End Time:</label>
-            <input type="datetime-local" class="form-control" id="endTime" name="endTime" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="venue" class="form-label">Venue:</label>
-            <select class="form-select" id="venue" name="venue" required>
-                <option value="" disabled selected>Select a Venue</option>
-                <?php foreach($all_venues as $venue): ?>
-                  <option value="<?php echo $venue['venue_id']?>"> 
-                    <?php echo $venue['name']?>
-                  </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-
-        <input type="submit" value="Add Gig" name="addGigBtn" class="btn btn-success" title="Add Gig" />
-         
-        <br>
-    </form>
-
-    
-
-
 </div>
-
     <?php include("footer.html");?>   
 </body>
 </html>

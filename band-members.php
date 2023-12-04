@@ -62,13 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <?php include("header.php");?>
-
-    <h1 class="text-center">Band Members By Band</h1>
-
+    <div class="container">
+    <h3 >Band Members By Band</h3>
+    <hr>
+    </div>
     <div class="row justify-content-center">
         <table class="table table-bordered table-card center" style="width:80%">
             <thead>
-                <tr class="bg-secondary text-white">
+                <tr style="background-color: #232D4B; color:white;">
                     <th width="20%">Band</th>
                     <th width="20%">Instagram</th>
                     <th width="50%">Members</th>
@@ -92,74 +93,81 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tbody>
         </table>
     </div>
+    <br>
+    <div class="container">
+    <div class="row">
+        <div class="col">
+        <div class="rounded-box-green">
+            <h5>Add Member To Band:</h5>
+            <form action="" method="post">
+                <label for="band">Select a Band:</label>
+                <select id="band" name="band">
+                    <?php foreach($list_of_bands as $band):?>
+                        <option value="<?php echo $band['band_id']; ?>"><?php echo $band['name']; ?></option>
+                    <?php endforeach;?>
+                </select>
+                <br>
+                <label for="band_member">Select a Member:</label>
+                <select id="band_member" name="band_member">
+                    <?php foreach($list_of_band_members as $member):?>
+                        <option value="<?php echo $member['account_id']; ?>"><?php echo $member['name']; ?></option>
+                    <?php endforeach;?>
+                </select>
+                <br>
+                <br>
+                <input type="submit" class="btn btn-outline-success" value="Add">
+            </form>
+        </div>
+        </div>
 
-    <hr>
-
-    <div class="rounded-box-green">
-        <h2 class="text-center">Add Band Member To Band</h2>
-        <p class="text-center text-decoration-underline">Select Band and Member</p>
-        <form action="" method="post" class="text-center">
-            <label for="band">Select a Band:</label>
-            <select id="band" name="band">
-                <?php foreach($list_of_bands as $band):?>
-                    <option value="<?php echo $band['band_id']; ?>"><?php echo $band['name']; ?></option>
-                <?php endforeach;?>
-            </select>
-            <br>
-            <label for="band_member">Select a Member:</label>
-            <select id="band_member" name="band_member">
-                <?php foreach($list_of_band_members as $member):?>
-                    <option value="<?php echo $member['account_id']; ?>"><?php echo $member['name']; ?></option>
-                <?php endforeach;?>
-            </select>
-            <br>
-            <br>
-            <input type="submit" value="Submit">
-        </form>
+        <div class="col">
+        <div class="red-rounded-box">
+            <h5>Remove Member From Band:</h5>
+            <form action="" method="post">
+                <label for="band_to_remove">Select a Band:</label>
+                <select id="band_to_remove" name="band_to_remove">
+                    <?php foreach($list_of_bands as $band):?>
+                        <option value="<?php echo $band['band_id']; ?>"><?php echo $band['name']; ?></option>
+                    <?php endforeach;?>
+                </select>
+                <br>
+                <label for="band_member_to_remove">Select a Member:</label>
+                <select id="band_member_to_remove" name="band_member_to_remove">
+                    <?php foreach($list_of_band_members as $member):?>
+                        <option value="<?php echo $member['account_id']; ?>"><?php echo $member['name']; ?></option>
+                    <?php endforeach;?>
+                </select>
+                <br>
+                <br>
+                <input type="submit" class="btn btn-outline-danger" value="Remove">
+            </form>
+        </div>
+        </div>
     </div>
-
-    <div class="red-rounded-box">
-        <h2 class="text-center">Remove Band Member From Band</h2>
-        <p class="text-center text-decoration-underline">Select Band and Member</p>
-        <form action="" method="post" class="text-center">
-            <label for="band_to_remove">Select a Band:</label>
-            <select id="band_to_remove" name="band_to_remove">
-                <?php foreach($list_of_bands as $band):?>
-                    <option value="<?php echo $band['band_id']; ?>"><?php echo $band['name']; ?></option>
-                <?php endforeach;?>
-            </select>
-            <br>
-            <label for="band_member_to_remove">Select a Member:</label>
-            <select id="band_member_to_remove" name="band_member_to_remove">
-                <?php foreach($list_of_band_members as $member):?>
-                    <option value="<?php echo $member['account_id']; ?>"><?php echo $member['name']; ?></option>
-                <?php endforeach;?>
-            </select>
-            <br>
-            <br>
-            <input type="submit" class="btn btn-outline-danger" value="Remove">
-        </form>
+    <div class="row">
+        <div class="col">
+        <div class="rounded-box">
+            <h5>See Who Has Played With Each Band Member:</h5>
+            <form action="" method="post">
+                <label for="member_played_with">Select a Band Member:</label>
+                <select id="member_played_with" name="member_played_with">
+                    <?php foreach($list_of_band_members as $member):?>
+                        <option value="<?php echo $member['account_id']; ?>"><?php echo $member['name']; ?></option>
+                    <?php endforeach;?>
+                </select>
+                <br>
+                <br>
+                <input type="submit" class="btn" style="background-color: #232D4B; color:white;" value="See Members">
+                <br>
+                <br>
+            </form>
+            <?php foreach($list_of_members_played_with as $member):?>
+                <p><?php echo('Name: '.$member['name'].' // Phone: '.$member['phoneNumber'].' // Email: '.$member['email']);?></p>
+            <?php endforeach;?>
+        </div>
+        </div>
     </div>
-
-    <div class="rounded-box">
-        <h2 class="text-center">See Who Has Played With Each Band Member:</h2>
-        <p class="text-center text-decoration-underline">Select Band Member</p>
-        <form action="" method="post" class="text-center">
-            <label for="member_played_with">Select a Band Member:</label>
-            <select id="member_played_with" name="member_played_with">
-                <?php foreach($list_of_band_members as $member):?>
-                    <option value="<?php echo $member['account_id']; ?>"><?php echo $member['name']; ?></option>
-                <?php endforeach;?>
-            </select>
-            <br>
-            <br>
-            <input type="submit" class="btn btn-info" value="See Members">
-        </form>
-        <?php foreach($list_of_members_played_with as $member):?>
-            <p><?php echo('Name: '.$member['name'].' // Phone: '.$member['phoneNumber'].' // Email: '.$member['email']);?></p>
-        <?php endforeach;?>
     </div>
-
     <br>
     <br>
     <?php include("footer.html");?>   
