@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="card d-flex mb-3">
             <div class="card-header d-flex justify-content-between align-items-center"
                 style="background-color: #eef0f7 !important;" id="student_info_header">
-                <div class="me-auto p-2">
+                <div class="me-auto p-1">
                     <h5 class="mb-0">
                         <?php echo $venue['name']; ?>
                     </h5>
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="px-1">
                     <form action="venues.php" method="post">
-                        <input type="submit" value="Update" name="updateBtn" class="btn btn-secondary mr-2" />
+                        <input type="submit" value="Update" name="updateBtn" class="btn-sm btn-secondary mr-2" />
                         <!--pass in all information that could be updated-->
                         <input type="hidden" name="venueid_to_update"
                             value="<?php echo $venue['venue_id']; ?>" />
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="px-1">
                     <form action="venues.php" method="post">
-                        <input type="submit" value="Delete" name="deleteBtn" class="btn btn-danger" />
+                        <input type="submit" value="Delete" name="deleteBtn" class="btn-sm btn-danger" />
                         <input type="hidden" name="venueid_to_delete"
                             value="<?php echo $venue['venue_id']; ?>" />
                     </form>

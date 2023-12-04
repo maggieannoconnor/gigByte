@@ -51,16 +51,29 @@ function deleteBand($band_id)
 
 }
 
-function updateBandByID($bandname, $genre, $phone, $instagram)
+function getBandById( $id )
 {
     global $db;
-    $query = "update band set genre=:genre, phoneNumber=:phone, instagram=:instagram where band.name=:bandname";
+    $query = "select * from band where band_id=:id;";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results;
+}
+
+function updateBandByID($id, $bandname, $genre, $phone, $instagram)
+{
+    global $db;
+    $query = "update band set band.name=:bandname, genre=:genre, phoneNumber=:phone, instagram=:instagram where band_id=:id;";
     $statement = $db->prepare($query);
     //echo($bandname);
     $statement->bindValue(':bandname', $bandname);
     $statement->bindValue(':genre', $genre);
     $statement->bindValue(':phone', $phone);
     $statement->bindValue(':instagram', $instagram);
+    $statement->bindValue(":id", $id);
 
     $statement->execute();
     $statement->closeCursor();

@@ -7,18 +7,13 @@ $list_of_bands = getAllBands();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handling different form submissions
     if (!empty($_POST['updateBtn'])) {
-        // Process update
-    } elseif (!empty($_POST['insertBtn'])) {
-        addBand($_POST['bandname'], $_POST['genre'], $_POST['phone'], $_POST['instagram']);
-        $list_of_bands = getAllBands();
+        //header("Location: bands-update.php");
     } elseif (!empty($_POST['deleteBtn'])) {
         deleteBand($_POST['id_to_delete']);
         $list_of_bands = getAllBands();
-    } elseif (!empty($_POST['confirmUpdateBtn'])) {
-        updateBandById($_POST['bandname'], $_POST['genre'], $_POST['phone'], $_POST['instagram']);
-        $list_of_bands = getAllBands();
-    }
+    } 
 }
+
 ?>
 
 <!DOCTYPE html> 
@@ -35,18 +30,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container">
             <h3 class="form-title">Bands</h3> 
             <hr>
+            <a href="bands-add.php" class="btn" style="background-color: #232D4B; color:white;" role="button" name="addbandbutton">
+                        Add Band
+            </a>
+            <br>
+            <br>
             <?php foreach ($list_of_bands as $band): ?> 
                 <div class="card d-flex mb-3">
                     <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #eef0f7 !important;" id="student_info_header">
-                        <div class="me-auto p-2">
+                        <div class="me-auto p-1">
                             <h5 class="mb-0">
                                 <?php echo $band['name']; ?>
                             </h5>
                         </div>
 
                         <div class="px-1">
-                            <form action="bands.php" method="post">
-                                <input type="submit" value="Update" name="updateBtn" class="btn btn-secondary" />
+                            <form action="bands-update.php" method="post">
+                                <a href="bands-update.php?band_id=<?php echo $band['band_id']; ?>" class="btn-sm" style="height: 30px; text-decoration: none; background-color: #232D4B; color:white;" role="button" name="updateBtn">
+                                    Update
+                                </a>
                                 <input type="hidden" name="id_to_update" value="<?php echo $band['band_id']; ?>" />
                                 <input type="hidden" name="name_to_update" value="<?php echo $band['name']; ?>" />
                                 <input type="hidden" name="genre_to_update" value="<?php echo $band['genre']; ?>" />
@@ -57,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="px-1">
                             <form action="bands.php" method="post">
-                                <input type="submit" value="Delete" name="deleteBtn" class="btn btn-danger" title="Remove a band" />
+                                <input type="submit" value="Delete" name="deleteBtn" class="btn-xs btn-danger" style="height: 28px;" title="Remove a band" />
                                 <input type="hidden" name="id_to_delete" value="<?php echo $band['band_id']; ?>"/>
                             </form>
                         </div>
@@ -86,52 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
             <?php endforeach; ?>
-`
-  
-
-        <!-- Add A Band -->
-        <div class="flex-grow-1">
-            <div class="container mt-4 form-section">
-                
-                <h3>Add Band</h3> 
-                <hr>
-                <form name="addBandForm" action="bands.php" method="post">   
-                    <div class="row mb-3 mx-3">
-                        Band Name (required):
-                        <input type="text" class="form-control" name="bandname" value="<?php echo $_POST['name_to_update'];?>"/>
-                    </div>
-                    <div class="row mb-3 mx-3">
-                        Genre (required):
-                        <input type="text" class="form-control" name="genre" value="<?php echo $_POST['genre_to_update'];?>"/>        
-                    </div>  
-                    <div class="row mb-3 mx-3">
-                        Phone Number (required):
-                        <input type="text" class="form-control" name="phone" value="<?php echo $_POST['phone_to_update'];?>"/>        
-                    </div>  
-                    <div class="row mb-3 mx-3">
-                        Instagram Handle:
-                        <input type="text" class="form-control" name="instagram" value="<?php echo $_POST['instagram_to_update'];?>"/>        
-                    </div>  
-                    <div class="row mb-3 mx-3 form-buttons">
-                        <input type="submit" value="Add New Band" name="insertBtn" class="btn" style="background-color: #232D4B; color:white;" title="Insert a band into bands" />
-                    </div>
-                    <div class="row mb-3 mx-3 form-buttons">
-                        <input type="submit" value="Confirm Update" name="confirmUpdateBtn" class="btn btn-secondary" title="Update a band's information" required/>   
-                    </div>  
-                    <br>
-                    <br>
-                    <div class="row mb-3 mx-3">
-                        <!--
-                        <form method="get" action="bands.php">
-                            <input type="text" name="filter" placeholder="search for a band here">
-                            <button type="submit">Search</button>
-                        </form>
-                        -->
-                    </div>
-                    <br>
-                </form>
-            </div>
-        </div>
     </div>
     <?php include("footer.html"); ?>
 </body>

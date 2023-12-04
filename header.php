@@ -17,8 +17,7 @@ if (isset($_POST["signout"])) {
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #232D4B;">
       <div class="container-fluid">            
         <a class="navbar-brand p-1" href="index.php">
-          <!-- <img src="https://i1.wp.com/ajaylimaye.com/wp-content/uploads/2019/06/1024px-University_of_Virginia_Rotunda_logo.svg_.png?fit=686%2C700&ssl=1" alt="UVA LOGO" width="30" height="30">
-          -->
+          <img src="gigbyte-icon-edited.png" width="30" height="30">
           GigByte
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
