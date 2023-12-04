@@ -41,29 +41,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h2>Register</h2>
-<form action="gigByteRegister.php" method="post">
-    <label for="id">ID (Numeric 6-Digit Unique ID):</label>
-    <input type="text" name="id" pattern="\d{6,}" title="Please enter a numeric ID with at least 6 digits" required><br>
+<div class="container mt-5">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="text-center mb-4">Register</h2>
+        <form action="gigByteRegister.php" method="post">
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" required><br>
+            <div class="form-group">
+                <label for="id">ID (Numeric 6-Digit Unique ID):</label>
+                <input type="text" class="form-control" name="id" pattern="\d{6,}" title="Please enter a numeric ID with at least 6 digits" required>
+            </div>
 
-    <label for="role">Role:</label>
-    <select name="role">
-        <option value="band_member">Band Member</option>
-        <option value="venue_coordinator">Venue Coordinator</option>
-    </select><br>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
 
-    <input type="submit" value="Next">
-</form>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select class="form-control" name="role">
+                    <option value="band_member">Band Member</option>
+                    <option value="venue_coordinator">Venue Coordinator</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Next</button>
+        </form>
+    </div>
+</div>
+
+<img src="gigbyte-icon.jpg" width="300" height="300">
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
+
