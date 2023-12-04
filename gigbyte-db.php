@@ -369,6 +369,18 @@ function getAllVenues()
     return $result;
 }
 
+function getVenueById( $id )
+{
+    global $db;
+    $query = "select * from venue where venue_id=:id;";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results;
+}
+
 function getAllVenueCoordinators()
 {
     global $db;

@@ -19,7 +19,7 @@ session_start();
 
 <body>
     <?php include("header.php"); ?>
-    <div class="container pt-3">
+    <div class="container pt-2">
         <header class="jumbotron ">
             <?php
             if (isset($_SESSION["id"])) {
@@ -27,21 +27,41 @@ session_start();
                 $userAttributes = getUserAttributes($id);
 
                 if ($userAttributes !== false) {
-                    echo "<p class='lead'><b>Welcome, {$userAttributes['id']}!</b></p>";
-                    echo "<p>Your role: {$userAttributes['role']}</p>";
+                    echo "<h3>Welcome, {$userAttributes['id']}!</h3>";
 
-                    // Get role attributes
-                    $roleAttributes = getRoleAttributes($userAttributes['role']);
-
-                    // User 
-                    foreach ($roleAttributes as $attribute) {
-                        echo "<p>{$attribute}: " . ($userAttributes[$attribute] ?? 'N/A') . "</p>";
-                    }
 
                     // Display Edit User Info Container only for logged-in users
                     ?>
                     <!-- Edit User Info Container -->
-
+                    <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Your role:</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><?php echo $userAttributes['role'];?></p>
+              </div>
+            </div>
+            <hr>
+            <?php
+            $roleAttributes = getRoleAttributes($userAttributes['role']);
+            foreach ($roleAttributes as $attribute) {
+                ?>
+                <div class="row">
+                <div class="col-sm-3">
+                    <p class="mb-0"><?php echo $attribute;?>:</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0"><?php echo $userAttributes[$attribute];?></p>
+                </div>
+                </div>
+                <hr>
+                <?php
+            }
+            ?>
+          </div>
+        </div>
                     <a href="account-edit.php" class="btn" style="background-color: #232D4B; color:white;" role="button" name="gotoupdateUserBtn">
                         Update
                     </a>
@@ -55,8 +75,11 @@ session_start();
             }
             ?>
         </header>
-    </div>
     <br>
+    <div class="container">
+    
+        </div>
+        </div>
 <br>
 <br>
 <br>

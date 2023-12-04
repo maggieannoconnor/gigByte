@@ -16,10 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (isset($_GET['band_id'])) {
     $band_id = $_GET['band_id'];
     $band_info = getBandById($band_id);
-    echo "hi";
-    echo $band_info;
-    echo "hello";
-    echo $band_info['name'];
 } else {
     header("Location: bands.php");
     exit();
@@ -62,7 +58,7 @@ if (isset($_GET['band_id'])) {
                         <input type="text" class="form-control" name="instagram" value="<?php echo $band_info['instagram']; ?>"/>        
                     </div>  
                     <div class="row mb-3 mx-3 form-buttons">
-                        <input type="submit" value="Confirm Update" name="confirmUpdateBtn" class="btn btn-secondary" title="Update a band's information" required/>   
+                        <input type="submit" value="Confirm Update" name="confirmUpdateBtn" class="btn" style="background-color: #232D4B; color:white;" title="Update a band's information" required/>   
                     </div>  
                     <br>
                     <br>

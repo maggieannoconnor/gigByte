@@ -1,25 +1,16 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-
 require("connect-db.php");
 require("gigbyte-db.php");
 
-// To list out all venues
 $list_of_venues = getAllVenues();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['updateBtn'])) {
         //echo $_POST['venuename_to_update'];
-    } else if (!empty($_POST['confirmUpdateBtn'])) {
-        updateVenue($_POST['venue_id'], $_POST['name'], $_POST['address']);
-        $list_of_venues = getAllVenues();
     } else if (!empty($_POST['deleteBtn'])) {
         deleteVenue($_POST['venueid_to_delete']);
         $list_of_venues = getAllVenues();
-    } else if (!empty($_POST['actionBtn'])) {
-        addVenue($_POST['name'], $_POST['address']);
-        $list_of_venues = getAllVenues(); // name, address
-    }
+    } 
 }
 ?>
 
@@ -44,6 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <h3>Venues</h3>
         <hr />
+        <a href="venues-add.php" class="btn" style="background-color: #232D4B; color:white;" role="button" name="addbandbutton">
+                        Add Venue
+            </a>
+            <br>
+            <br>
         <?php foreach ($list_of_venues as $venue): ?>
         <div class="card d-flex mb-3">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -55,8 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
 
                 <div class="px-1">
-                    <form action="venues.php" method="post">
-                        <input type="submit" value="Update" name="updateBtn" class="btn-sm btn-secondary mr-2" />
+                    <form action="venues-update.php" method="post">
+                        <a href="venues-update.php?venue_id=<?php echo $venue['venue_id']; ?>" class="btn-sm" style="height: 30px; text-decoration: none; background-color: #232D4B; color:white;" role="button" name="updateBtn">
+                                    Update
+                                </a>
                         <!--pass in all information that could be updated-->
                         <input type="hidden" name="venueid_to_update"
                             value="<?php echo $venue['venue_id']; ?>" />
@@ -69,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="px-1">
                     <form action="venues.php" method="post">
-                        <input type="submit" value="Delete" name="deleteBtn" class="btn-sm btn-danger" />
+                        <input type="submit" value="Delete" name="deleteBtn" class="btn-xs btn-danger" style="height: 28px;" title="Remove a venue" />
                         <input type="hidden" name="venueid_to_delete"
                             value="<?php echo $venue['venue_id']; ?>" />
                     </form>
@@ -82,31 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <?php endforeach; ?>
 <br>
-<br>
-<br>
-    <h3>Add Venue</h3>
-    <form name="mainForm" action="venues.php" method="post">
-        <input type="hidden" class="form-control" name="venue_id" required
-            value="<?php echo $_POST['venueid_to_update']; ?>" />
-        <div class="row mb-3 mx-2">
-            Venue Name:
-            <input type="text" class="form-control" name="name" required
-                value="<?php echo $_POST['venuename_to_update']; ?>" />
-        </div>
-        <div class="row mb-3 mx-2">
-            Address:
-            <input type="text" class="form-control" name="address" required
-                value="<?php echo $_POST['venueaddress_to_update']; ?>" />
-        </div>
-        <div class="row mb-3 mx-2" >
-            <input type="submit" value="Add Venue" name="actionBtn" class="btn" style="background-color: #232D4B; color:white;"
-                title="Insert a venue into venue" required />
-        </div>
-        <div class="row mb-3 mx-2">
-            <input type="submit" value="Confirm Update" name="confirmUpdateBtn" class="btn btn-secondary"
-                title="Update a venues's information" required />
-        </div>
-    </form>
     </div>
     </div>
     <?php include("footer.html"); ?>
